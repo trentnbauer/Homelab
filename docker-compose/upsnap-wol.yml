@@ -12,6 +12,9 @@ services:
       - UPSNAP_SCAN_RANGE=${RANGE:-192.168.0.1/24} # Scan range is used for device discovery on local network
       - UPSNAP_WEBSITE_TITLE=${WEBSITE_TITLE:-Up Snap} # Custom website title
       - UPSNAP_PING_PRIVILEGED=${PING_PRIVILEGED:-true}
+    entrypoint: /bin/sh -c "./upsnap serve --http 0.0.0.0:${WEBPORT:-8090}"
+    healthcheck:
+      test: curl -fs "http://localhost:${WEBPORT:-8090}/api/health" || exit 1
     logging:
       driver: "json-file"
       options:
@@ -20,7 +23,7 @@ services:
     labels:
       - dockflare.enable=${CFTUNNEL:-true}
       - dockflare.0.hostname=${CFSUBDOMAIN}${CFDOMAIN}
-      - dockflare.0.service=http://${HOSTNAME:-localhost}:8090
+      - dockflare.0.service=http://${HOSTNAME:-localhost}:${WEBPORT:-8090}
       - dockflare.0.access.policy=${CFPOLICY:-default_tld}
       - dockflare.0.zonename=${CFDOMAIN}
       - dockflare.0.path=${CFURLPATH:-}
