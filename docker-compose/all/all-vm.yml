@@ -95,7 +95,7 @@ services:
     restart: unless-stopped
     networks:
       - dockflare
-      - cloudflare-net
+      - cloudflare
     environment:
       - DOCKER_HOST=tcp://dockflare-proxy:2375
       - DOCKFLARE_MASTER_URL=${DOCKFLARE_MASTER_URL}
@@ -114,5 +114,6 @@ volumes:
   dockflare_agent:
 
 networks:
-  cloudflare-net:
+  cloudflare:
+    name: cloudflare-net
   dockflare:
