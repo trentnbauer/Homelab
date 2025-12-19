@@ -115,5 +115,4 @@ volumes:
 
 networks:
   cloudflare-net:
-    driver: host
   dockflare:
