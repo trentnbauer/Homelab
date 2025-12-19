@@ -87,6 +87,8 @@ services:
     ports:
       - ${DOCKFLAREPORT:-5000}:5000
     environment:
+      - USE_EXTERNAL_CLOUDFLARED=true
+      - EXTERNAL_TUNNEL_ID={$CFTUNNELID}
       - STATE_FILE_PATH=/app/data/state.json
       - TZ=${TZ:-Australia/Melbourne}
       - CF_API_TOKEN=$CFAPITOKEN
@@ -114,6 +116,22 @@ services:
       - dockflare.0.access.policy=default_tld
       - dockflare.0.zonename=$URLTLD
       #- cloudflare.tunnel.path=${URLPATH:-}
+
+  cloudflared:
+    image: cloudflare/cloudflared:2025.11.1
+    restart: unless-stopped
+    environment:
+      - TUNNEL_TOKEN=${CFTUNNELID}
+      - TUNNEL_METRICS=localhost:2000
+    command: tunnel --no-autoupdate run
+    healthcheck:
+      command: cloudflared tunnel health --ready-endpoint localhost:2000/ready
+      interval: 10s
+      retries: 5
+      timeout: 9s
+      start_period: 30s
+    labels:
+      - autoheal=true
       
   portracker:
     image: mostafawahied/portracker:1.2.2@sha256:4464bc74d909f54cf29df5f4d44f8e2190e589219b9d092b48ba054077ab4582
