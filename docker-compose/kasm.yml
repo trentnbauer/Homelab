@@ -35,9 +35,10 @@ services:
       - dockflare.enable=${CFTUNNEL:-true}
       - dockflare.0.hostname=${CFSUBDOMAIN}${CFDOMAIN}
       - dockflare.0.service=https://${HOSTNAME:-localhost}:${PORT:-444}
-      - dockflare.0.access.policy=${CFPOLICY:-default_tld}
+      - dockflare.0.access.policy=${CFPOLICY:-authenticate}
+      - dockflare.0.access.name=${CFACCESSNAME:-Kasm}
+      - dockflare.0.access.session_duration=${CFDURATION:-4h}
       - dockflare.0.zonename=${CFDOMAIN}
-      - dockflare.0.path=${CFURLPATH:-}
       - dockflare.0.no_tls_verify=true
     logging:
       driver: "json-file"
