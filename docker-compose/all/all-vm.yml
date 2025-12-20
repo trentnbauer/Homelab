@@ -107,7 +107,7 @@ services:
     labels:
       - autoheal=true
       - dockflare.enable=true
-      - dockflare.0.hostname=${HOSTNAME:-MissingHostname}.dockflare.${URLTLD}
+      - dockflare.0.hostname=${HOSTNAME:-MissingHostname}-dockflare.${URLTLD}
       - dockflare.0.service=http://${HOSTNAME_FQDN:-localhost}:${DOCKLAREPORT:-5000}
       - dockflare.0.access.policy=default_tld
       - dockflare.0.zonename=${URLTLD}
@@ -127,7 +127,7 @@ services:
     labels:
       - autoheal=true
       - dockflare.enable=true
-      - dockflare.0.hostname=${HOSTNAME:-MissingHostname}.portracker.${URLTLD}
+      - dockflare.0.hostname=${HOSTNAME:-MissingHostname}-portracker.${URLTLD}
       - dockflare.0.service=http://${HOSTNAME_FQDN:-localhost}:${PORTACKERPORT:-4999}
       - dockflare.0.access.policy=default_tld
       - dockflare.0.zonename=${URLTLD}
