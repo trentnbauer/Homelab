@@ -11,3 +11,8 @@ services:
       - CLOUDFLARE_API_TOKEN=${CF_APIKEY}   # Your Cloudflare API token
       - DOMAINS=${DOMAINS}                  # Your domains (separated by commas)
       - PROXIED=${PROXIED-false}            # Tell Cloudflare to cache webpages and hide your IP (optional)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
