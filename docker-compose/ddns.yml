@@ -1,16 +1,13 @@
 services:
   ddns:
     image: favonia/cloudflare-ddns:1.15.1
-    network_mode: host # This bypasses network isolation and makes IPv6 easier (optional; see below)
+    network_mode: host 
     restart: always
-    #user: "1000:1000"
-    read_only: true # Make the container filesystem read-only (optional but recommended)
-    cap_drop: [all] # Drop all Linux capabilities (optional but recommended)
-    security_opt: [no-new-privileges:true] # Another protection to restrict superuser privileges (optional but recommended)
+    user: "1000:1000"
+    read_only: true 
+    cap_drop: [all] 
+    security_opt: [no-new-privileges:true] 
     environment:
-      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_APIKEY}
-        # Your Cloudflare API token
-      - DOMAINS=${DOMAINS}
-        # Your domains (separated by commas)
-      - PROXIED=${PROXIED-false}
-        # Tell Cloudflare to cache webpages and hide your IP (optional)
+      - CLOUDFLARE_API_TOKEN=${CF_APIKEY}   # Your Cloudflare API token
+      - DOMAINS=${DOMAINS}                  # Your domains (separated by commas)
+      - PROXIED=${PROXIED-false}            # Tell Cloudflare to cache webpages and hide your IP (optional)
