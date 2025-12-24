@@ -21,7 +21,7 @@ services:
       - cloudflare.tunnel.enable=true
       - cloudflare.tunnel.hostname=${SUBDOMAIN}${DOMAIN}
       - cloudflare.tunnel.service=http://${HOSTNAME:-localhost}:${WEBPORT:-5055}
-      - cloudflare.tunnel.access.policy=${CFPOLICY:-authenticate}
+      - cloudflare.tunnel.access.policy=${CFPOLICY:-bypass}
       - cloudflare.tunnel.name=${CFACCESSNAME:-Overseerr}
       - cloudflare.tunnel.zonename=${DOMAIN}
       - cloudflare.tunnel.path=${URLPATH:-}
@@ -33,6 +33,7 @@ services:
 volumes:
   app:
   #www:
+
 
 
 
