@@ -7,8 +7,6 @@ services:
     volumes:
       - db:/var/lib/mysql
       - dbetc:/etc/mysql
-    networks:
-      - panel
     environment:
       MYSQL_PASSWORD: $MYSQL_PASS
       MYSQL_ROOT_PASSWORD: $MYSQL_PASS_ROOT
@@ -28,8 +26,6 @@ services:
         max-file: "3"      
   cache:
     image: redis:alpine3.18
-    networks:
-      - panel
     restart: unless-stopped
     volumes:
       - cache:/data
@@ -44,12 +40,11 @@ services:
       driver: "json-file"
       options:
         max-size: "10m"
-        max-file: "3"    
+        max-file: "3"   
+        
   panel:
     image: ghcr.io/pterodactyl/panel:v1.11.11@sha256:3ad185c83818944cfd4dba4dcefbca5ffb64655aaa63363f8f76ce41cd19873f
     restart: unless-stopped
-    networks:
-       - panel
     ports:
       - ${PORT_HTTP:-80}:80
     #dns:
@@ -77,8 +72,8 @@ services:
       CACHE_DRIVER: "redis"
       SESSION_DRIVER: "redis"
       QUEUE_DRIVER: "redis"
-      REDIS_HOST: "cache"
-      DB_HOST: "database"
+      REDIS_HOST: cache
+      DB_HOST: database
       DB_PORT: "3306"
       HASHIDS_SALT: $HASHIDS_SALT     #Refer to https://github.com/pterodactyl/panel/issues/5012#issuecomment-1960789655
       HASHIDS_LENGTH: 8
@@ -103,13 +98,9 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-networks:
-  panel:
 
 volumes:
   cache:
   db:
   env:
   dbetc:
-
-
