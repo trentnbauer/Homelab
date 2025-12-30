@@ -6,6 +6,7 @@ services:
     ports:
       - ${WEBUI:-8265}:8265 # webUI port
       - ${SERVER:-8266}:${SERVER:-8266} # server port
+      - 8267:8267
     environment:
       - TZ=Australia/Melbourne
       #- PUID=${PUID}
