@@ -24,8 +24,8 @@ services:
         aliases:
           - panel
     ports:
-       - ${PELICAN_PORT:-80}:80 # if you are behind a proxy uncomment this line and comment out 80 and 443
-       - "9000:9000" # enable when not using caddy to be able to reach php-fpm
+       #- ${PELICAN_PORT:-80}:80
+       #- "9000:9000"
     volumes:
       - pelican-data:/pelican-data
       - pelican-logs:/var/www/html/storage/logs
@@ -91,7 +91,7 @@ services:
         aliases:
           - wings
     ports:
-      - ${WINGS_PORT:-443}:443
+      #- ${WINGS_PORT:-443}:443
       - ${SFTP_PORT:-2022}:2022
     tty: true
     environment:
@@ -179,11 +179,11 @@ services:
         max-size: "5m"
         max-file: "3"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"] # Command to execute the health check
-      interval: 10s                      # How often to run the check
-      timeout: 5s                        # Maximum time for the command to run
-      retries: 3                         # Number of consecutive failures to consider "unhealthy"
-      start_period: 15s                  # Grace period for the container to start up
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     labels:
       - AutohealPelican=true
 
@@ -257,13 +257,13 @@ services:
     cap_drop: [all] 
     security_opt: [no-new-privileges:true] 
     environment:
-      - CLOUDFLARE_API_TOKEN=${CF_APITOKEN}         # Your Cloudflare API token
-      - DOMAINS=${JOIN_SUBDOMAIN:-play}.${DOMAIN} # Subdomain that players will use to join your game servers
-      - PROXIED=${PROXIED-false}                  # Tell Cloudflare to cache webpages and hide your IP (optional)
-      - DETECTION_TIMEOUT=15s                     # Resolves and potential latency issues
-      - UPDATE_CRON=@every ${UPDATE_CRON:-5m}     # how often to update
-      - DELETE_ON_STOP=${DELETE_ON_STOP:-false}   # delete the DDNS record when stopping the container
-      - UPDATE_ON_START=${UPDATE_ON_START:-true}  # update DDNS when the container starts
+      - CLOUDFLARE_API_TOKEN=${CF_APITOKEN}
+      - DOMAINS=${JOIN_SUBDOMAIN:-play}.${DOMAIN}
+      - PROXIED=${PROXIED-false}
+      - DETECTION_TIMEOUT=15s
+      - UPDATE_CRON=@every ${UPDATE_CRON:-5m}
+      - DELETE_ON_STOP=${DELETE_ON_STOP:-false}
+      - UPDATE_ON_START=${UPDATE_ON_START:-true}
     logging:
       driver: "json-file"
       options:
