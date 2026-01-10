@@ -125,8 +125,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 5
         window: 120s
     volumes:
       - db:/var/lib/mysql
@@ -162,8 +162,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 5
         window: 120s
     networks:
       Management:
@@ -189,8 +189,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 5
         window: 120s
       resources:
         limits:
@@ -238,8 +238,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 5
         window: 120s
       resources:
         limits:
@@ -273,8 +273,8 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 5
         window: 120s
     environment:
       AUTOHEAL_CONTAINER_LABEL: AutohealPelican
