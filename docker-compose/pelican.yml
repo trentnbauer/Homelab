@@ -26,12 +26,11 @@ services:
     volumes:
       - pelican-data:/pelican-data
       - pelican-logs:/var/www/html/storage/logs
-      #- pelican-plugins:/var/www/pelican/plugins
+      - pelican-plugins:/var/www/pelican/plugins
     environment:
       TZ: ${TZ:-UTC}
       APP_URL: https://${PANEL_SUBDOMAIN:-panel}.${DOMAIN}
-      #LE_EMAIL: "USEYOUROWNEMAILHERE@example.com" # email to be used for let's encrypt certificates
-      #APP_DEBUG: ${DEBUG:-false}
+      APP_DEBUG: ${DEBUG:-false}
       APP_ENV: production
       APP_LOCALE: ${LOCALE:-en}
       BEHIND_PROXY: true
