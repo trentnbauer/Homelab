@@ -30,9 +30,9 @@ services:
         aliases:
           - panel
     volumes:
-      - pelican-data:/pelican-data
-      - pelican-logs:/var/www/html/storage/logs
-      - pelican-plugins:/var/www/pelican/plugins
+      - panel-data:/pelican-data
+      - panel-logs:/var/www/html/storage/logs
+      - panel-plugins:/var/www/pelican/plugins
     environment:
       TZ: ${TZ:-UTC}
       APP_URL: https://${PANEL_SUBDOMAIN:-panel}.${DOMAIN}
@@ -105,7 +105,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/containers/:/var/lib/docker/containers/
-      - /etc/pelican/:/etc/pelican/
+      - wings-config:/etc/pelican/
       - /var/lib/pelican/:/var/lib/pelican/
       - /var/log/pelican/:/var/log/pelican/
       - /tmp/pelican/:/tmp/pelican/
@@ -133,7 +133,7 @@ services:
         max_attempts: 5
         window: 120s
     volumes:
-      - db:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
       Management:
         aliases:
@@ -294,12 +294,11 @@ services:
 
       
 volumes:
-  pelican-data:
-  pelican-logs:
-  pelican-plugins:
-  wings-data:
+  panel-data:
+  panel-logs:
+  panel-plugins:
   wings-config:
-  db:
+  database:
   dockflare:
 
 networks:
