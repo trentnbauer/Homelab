@@ -289,10 +289,11 @@ services:
 
       
 volumes:
+  pelican-plugins:
   pelican-data:
+  pelican-logs:
   wings-data:
   wings-config:
-  pelican-logs:
   db:
   dockflare:
 
