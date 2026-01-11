@@ -291,6 +291,7 @@ services:
 volumes:
   pelican-data:
   pelican-logs:
+  pelican-plugins:
   wings-data:
   wings-config:
   db:
