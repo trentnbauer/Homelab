@@ -99,12 +99,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/containers/:/var/lib/docker/containers/
-      - wings-config:/etc/pelican/
+      - /etc/pelican/:/etc/pelican/
       - /var/lib/pelican/:/var/lib/pelican/
       - wings-logs:/var/log/pelican/
       - wings-temp:/tmp/pelican/
-      - /etc/ssl/certs:/etc/ssl/certs:ro
-      - wings-data:/srv/daemon-data/
     logging:
       driver: "json-file"
       options:
