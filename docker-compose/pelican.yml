@@ -32,11 +32,10 @@ services:
     volumes:
       - panel-data:/pelican-data
       - panel-logs:/var/www/html/storage/logs
-      - panel-plugins:/var/www/pelican/plugins
     environment:
       TZ: ${TZ:-UTC}
       APP_URL: https://${PANEL_SUBDOMAIN:-panel}.${DOMAIN}
-      #APP_NAME: ${APP_NAME:-Pelican Panel}
+      #APP_NAME: ${APP_NAME:-Pelican}
       #APP_KEY: ${APP_KEY}  ### 32 character random password
       APP_DEBUG: ${DEBUG:-false}
       APP_ENV: production
@@ -304,7 +303,6 @@ services:
 volumes:
   panel-data:
   panel-logs:
-  panel-plugins:
   wings-config:
   database:
   dockflare:
