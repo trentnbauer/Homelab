@@ -56,6 +56,7 @@ services:
       QUEUE_CONNECTION: redis
       REDIS_HOST: cache
       MAIL_DRIVER: ${MAIL_DRIVER:-smtp}
+      MAIL_MAILER: ${MAIL_DRIVER:-smtp}
       MAIL_HOST: ${MAIL_SERVER:-smtp.gmail.com}
       MAIL_PORT: ${MAIL_PORT:-465}
       MAIL_FROM: ${MAIL_FROM}
