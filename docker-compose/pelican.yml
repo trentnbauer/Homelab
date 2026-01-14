@@ -1,5 +1,7 @@
 services:
   panel:
+    ports:
+      - ${PANEL_PORT:-80}:80
     image: ghcr.io/pelican-dev/panel:v1.0.0-beta30@sha256:aec08833e40b54e773cae68945d81f42561d176244032e33c152a92ebd0e0deb
     deploy:
       restart_policy:
@@ -68,14 +70,16 @@ services:
         max-size: "5m"
         max-file: "3"
     labels:
-      - pelicantunnel.enable=true
-      - pelicantunnel.0.hostname=${PANEL_SUBDOMAIN:-panel}.${DOMAIN}
-      - pelicantunnel.0.service=http://panel:80
-      - pelicantunnel.0.access.policy=bypass
-      - pelicantunnel.0.zonename=${DOMAIN}
+      - dockflare.enable=true
+      - dockflare.0.hostname=${PANEL_SUBDOMAIN:-panel}.${DOMAIN}
+      - dockflare.0.service=http://panel:80
+      - dockflare.0.access.policy=bypass
+      - dockflare.0.zonename=${DOMAIN}
       - AutohealPelican=true
 
   wings:
+    ports:
+      - ${WINGS_PORT:-443}:443
     image: ghcr.io/pelican-dev/wings:v1.0.0-beta21@sha256:a610344756975ef0f37edc602be26a0656f376b187c84cef7fcc673923a8cc59
     deploy:
       restart_policy:
@@ -117,11 +121,11 @@ services:
         max-size: "5m"
         max-file: "3"
     labels:
-      - pelicantunnel.enable=true
-      - pelicantunnel.0.hostname=${WINGS_SUBDOMAIN:-wings}.${DOMAIN}
-      - pelicantunnel.0.service=http://wings:443
-      - pelicantunnel.0.access.policy=bypass
-      - pelicantunnel.0.zonename=${DOMAIN}
+      - dockflare.enable=true
+      - dockflare.0.hostname=${WINGS_SUBDOMAIN:-wings}.${DOMAIN}
+      - dockflare.0.service=http://wings:443
+      - dockflare.0.access.policy=bypass
+      - dockflare.0.zonename=${DOMAIN}
       - AutohealPelican=true
 
   database:
@@ -189,56 +193,6 @@ services:
     labels:
       - AutohealPelican=true
 
-  dockflare:
-    image: alplat/dockflare:v2.0.4 #DO NOT CHANGE - NEWER VERSIONS REQUIRE CONFIGURATION IN WEB UI
-    restart: unless-stopped
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 30s
-        max_attempts: 5
-        window: 120s
-      resources:
-        limits:
-          cpus: ${DOCKFLARE_CPULIMIT:-0.50}
-          #memory: 50M
-    networks:
-      Management:
-        aliases:
-          - dockflare
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:5000 -O /dev/null || exit 1
-      interval: 30s
-      retries: 3
-      start_period: 30s
-      timeout: 20s 
-    ports:
-      - ${DOCKFLARE_PORT:-5000}:5000
-    environment:
-      - TUNNEL_NAME=pelican
-      - CLOUDFLARED_NETWORK_NAME=pelican-mgmt
-      - CLOUDFLARED_IMAGE=cloudflare/cloudflared:latest
-      - CF_API_TOKEN=${CF_APITOKEN}
-      - CF_ACCOUNT_ID=${CF_ACCOUNTID}
-      - AGENT_STATUS_UPDATE_INTERVAL_SECONDS=5
-      - TZ=${TZ:-Australia/Melbourne}
-      - GRACE_PERIOD_SECONDS=3600
-      - CLEANUP_INTERVAL_SECONDS=1800
-      #- SCAN_ALL_NETWORKS=false
-      - MAX_CONCURRENT_DNS_OPS=${DOCKFLARE_DNSOPS:-2}
-      - LABEL_PREFIX=pelicantunnel
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - dockflare:/app/data
-    labels:
-      - AutohealPelican=true
-      - pelicantunnel.enable=true
-      - pelicantunnel.0.hostname=${DOCKFLARE_SUBDOMAIN:-dockflare}.${DOMAIN}
-      - pelicantunnel.0.service=http://dockflare:5000
-      - pelicantunnel.0.access.policy=authenticate
-      - pelicantunnel.0.zonename=${DOMAIN}
-
-      
   ddns-play:
     image: favonia/cloudflare-ddns:1.15.1
     depends_on:
