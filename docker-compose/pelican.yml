@@ -232,7 +232,7 @@ services:
       - dockflare.0.service=http://dockflare:${DOCKLAREPORT:-5000}
       - dockflare.0.access.policy=default_tld
       - dockflare.0.zonename=${URLTLD}
-      #- cloudflare.tunnel.path=${URLPATH:-}
+      #- dfgeneric.path=${URLPATH:-}
   ddns-play:
     image: favonia/cloudflare-ddns:1.15.1
     depends_on:
@@ -313,4 +313,5 @@ networks:
        config:
        - subnet: 192.168.254.0/24
          gateway: 192.168.254.1
+
 
