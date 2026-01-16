@@ -99,7 +99,6 @@ services:
           - wings
     ports:
       - ${SFTP_PORT:-2022}:2022
-      - ${WINGS_PORT:-443}:443
     tty: true
     environment:
       APP_DEBUG: ${DEBUG:-false}
@@ -192,6 +191,7 @@ services:
       start_period: 15s
     labels:
       - AutohealPelican=true
+
   dockflare:
     image: alplat/dockflare:v2.0.4
     restart: unless-stopped
@@ -224,13 +224,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - dockflare:/app/data
     labels:
-      - autoheal=true
+      - AutohealPelican=true
       - dfpelican.enable=true
       - dfpelican.0.hostname=dockflare.${domain}
       - dfpelican.0.service=http://dockflare:${DOCKLAREPORT:-5000}
       - dfpelican.0.access.policy=default_tld
       - dfpelican.0.zonename=${URLTLD}
-      #- dfpelican.path=${URLPATH:-}
+      
   ddns-play:
     image: favonia/cloudflare-ddns:1.15.1
     depends_on:
