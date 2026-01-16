@@ -21,48 +21,48 @@ services:
       - cloudflare-net
     labels:
       - autoheal=true
-      - dockflare.enable=${CFTUNNEL:-true}
-      - dockflare.0.hostname=${CFSUBDOMAIN0}${CFDOMAIN0}
-      - dockflare.0.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.0.access.policy=${CFPOLICY0:-default_tld}
-      - dockflare.0.zonename=${CFDOMAIN0}
-      - dockflare.0.path=${CFURLPATH0:-}
+      - dfgeneric.enable=${CFTUNNEL:-true}
+      - dfgeneric.0.hostname=${CFSUBDOMAIN0}${CFDOMAIN0}
+      - dfgeneric.0.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.0.access.policy=${CFPOLICY0:-default_tld}
+      - dfgeneric.0.zonename=${CFDOMAIN0}
+      - dfgeneric.0.path=${CFURLPATH0:-}
 
-      - dockflare.1.hostname=${CFSUBDOMAIN1}${CFDOMAIN1}
-      - dockflare.1.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.1.access.policy=${CFPOLICY1:-default_tld}
-      - dockflare.1.zonename=${CFDOMAIN1}
-      - dockflare.1.path=${CFURLPATH1:-}
+      - dfgeneric.1.hostname=${CFSUBDOMAIN1}${CFDOMAIN1}
+      - dfgeneric.1.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.1.access.policy=${CFPOLICY1:-default_tld}
+      - dfgeneric.1.zonename=${CFDOMAIN1}
+      - dfgeneric.1.path=${CFURLPATH1:-}
 
-      - dockflare.2.hostname=${CFSUBDOMAIN2}${CFDOMAIN2}
-      - dockflare.2.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.2.access.policy=${CFPOLICY2:-default_tld}
-      - dockflare.2.zonename=${CFDOMAIN2}
-      - dockflare.2.path=${CFURLPATH2:-}
+      - dfgeneric.2.hostname=${CFSUBDOMAIN2}${CFDOMAIN2}
+      - dfgeneric.2.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.2.access.policy=${CFPOLICY2:-default_tld}
+      - dfgeneric.2.zonename=${CFDOMAIN2}
+      - dfgeneric.2.path=${CFURLPATH2:-}
 
-      - dockflare.3.hostname=${CFSUBDOMAIN3}${CFDOMAIN3}
-      - dockflare.3.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.3.access.policy=${CFPOLICY3:-default_tld}
-      - dockflare.3.zonename=${CFDOMAIN3}
-      - dockflare.3.path=${CFURLPATH3:-}
+      - dfgeneric.3.hostname=${CFSUBDOMAIN3}${CFDOMAIN3}
+      - dfgeneric.3.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.3.access.policy=${CFPOLICY3:-default_tld}
+      - dfgeneric.3.zonename=${CFDOMAIN3}
+      - dfgeneric.3.path=${CFURLPATH3:-}
 
-      - dockflare.4.hostname=${CFSUBDOMAIN4}${CFDOMAIN4}
-      - dockflare.4.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.4.access.policy=${CFPOLICY4:-default_tld}
-      - dockflare.4.zonename=${CFDOMAIN4}
-      - dockflare.4.path=${CFURLPATH4:-}
+      - dfgeneric.4.hostname=${CFSUBDOMAIN4}${CFDOMAIN4}
+      - dfgeneric.4.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.4.access.policy=${CFPOLICY4:-default_tld}
+      - dfgeneric.4.zonename=${CFDOMAIN4}
+      - dfgeneric.4.path=${CFURLPATH4:-}
 
-      - dockflare.5.hostname=${CFSUBDOMAIN5}${CFDOMAIN5}
-      - dockflare.5.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.5.access.policy=${CFPOLICY5:-default_tld}
-      - dockflare.5.zonename=${CFDOMAIN5}
-      - dockflare.5.path=${CFURLPATH5:-}
+      - dfgeneric.5.hostname=${CFSUBDOMAIN5}${CFDOMAIN5}
+      - dfgeneric.5.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.5.access.policy=${CFPOLICY5:-default_tld}
+      - dfgeneric.5.zonename=${CFDOMAIN5}
+      - dfgeneric.5.path=${CFURLPATH5:-}
 
-      - dockflare.6.hostname=${CFSUBDOMAIN6}${CFDOMAIN6}
-      - dockflare.6.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
-      - dockflare.6.access.policy=${CFPOLICY6:-default_tld}
-      - dockflare.6.zonename=${CFDOMAIN6}
-      - dockflare.6.path=${CFURLPATH6:-}
+      - dfgeneric.6.hostname=${CFSUBDOMAIN6}${CFDOMAIN6}
+      - dfgeneric.6.service=http://${HOSTNAME:-localhost}:${PORT:-3001}
+      - dfgeneric.6.access.policy=${CFPOLICY6:-default_tld}
+      - dfgeneric.6.zonename=${CFDOMAIN6}
+      - dfgeneric.6.path=${CFURLPATH6:-}
     logging:
       driver: "json-file"
       options:
@@ -74,3 +74,4 @@ networks:
   cloudflare-net:
     name: cloudflare-net
     external: true
+

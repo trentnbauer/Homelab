@@ -21,12 +21,12 @@ services:
         max-size: "15m"
         max-file: "3"   
     labels:
-      - dockflare.enable=${CFTUNNEL:-true}
-      - dockflare.0.hostname=${CFSUBDOMAIN}${CFDOMAIN}
-      - dockflare.0.service=http://${HOSTNAME:-localhost}:${WEBPORT:-8090}
-      - dockflare.0.access.policy=${CFPOLICY:-default_tld}
-      - dockflare.0.zonename=${CFDOMAIN}
-      - dockflare.0.path=${CFURLPATH:-}
+      - dfgeneric.enable=${CFTUNNEL:-true}
+      - dfgeneric.0.hostname=${CFSUBDOMAIN}${CFDOMAIN}
+      - dfgeneric.0.service=http://${HOSTNAME:-localhost}:${WEBPORT:-8090}
+      - dfgeneric.0.access.policy=${CFPOLICY:-default_tld}
+      - dfgeneric.0.zonename=${CFDOMAIN}
+      - dfgeneric.0.path=${CFURLPATH:-}
       - autoheal=true
 
   autowol:
@@ -47,3 +47,4 @@ services:
       start_period: 30s
 volumes:
   app:
+
