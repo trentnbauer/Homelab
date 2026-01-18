@@ -269,7 +269,25 @@ services:
         max-file: "3"
     labels:
       - AutohealPelican=true
-      
+
+  db_manager:
+    image: ghcr.io/jeliebig/adminer-autologin:4.8.1
+    environment:
+      - ADMINER_PLUGINS=login-env-vars
+      - ADMINER_DRIVER=server
+      - ADMINER_SERVER=database
+      - ADMINER_USERNAME=root
+      - ADMINER_PASSWORD={MYSQL_ROOT_PASS}
+    networks:
+      - pelican-mgmt
+    labels:
+      - AutohealPelican=true
+      - dfpelican.enable=true
+      - dfpelican.0.hostname=${DB_SUBDOMAIN:-db}.${DOMAIN}
+      - dfpelican.0.service=http://dockflare:${DOCKLAREPORT:-5000}
+      - dfpelican.0.access.policy=default_tld
+      - dfpelican.0.zonename=${DOMAIN}
+
   autoheal:
     deploy:
       replicas: 1
