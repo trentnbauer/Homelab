@@ -1,0 +1,12 @@
+type: leaky
+name: trent/pterodactyl-wings-bf
+description: "Fixed Pterodactyl Bruteforce"
+filter: "evt.Meta.log_type in ['pterodactyl_wings_invalid_format', 'pterodactly_wings_invalid_format', 'pterodactyl_wings_invalid_username_or_password']"
+leakspeed: 15m
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 30m
+labels:
+  service: pterodactyl
+  behavior: "ssh:bruteforce"
+  label: "Pterodactyl Fixed Bruteforce"
