@@ -353,8 +353,10 @@ services:
       - PelicanAutoheal=true
     networks:
       Management:
+        aliases:
+          - crowdsec
 
-  crowdsec-bouncer:
+  crowdsecbouncer-firewall:
     image: ghcr.io/shgew/cs-firewall-bouncer-docker:v0.0.34@sha256:ff1b5b0972ea0cfe39a4f10728effc38f6185a88b742fc4ad5a53d5dca80aca1
     deploy:
       restart_policy:
@@ -381,6 +383,32 @@ services:
     volumes:
       - bouncer-config:/config:rw
       - /etc/localtime:/etc/localtime:ro
+
+  crowdsecbouncer-cloudflare:
+    image: ghcr.io/crowdsecurity/cloudflare-worker-bouncer:v0.0.14
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+        max_attempts: 6
+        window: 60s
+      resources:
+        limits:
+          cpus: ${CROWDSEC_CPULIMIT:-2}
+    restart: unless-stopped
+    depends_on:
+      crowdsec:
+        condition: service_started
+    environment:
+      API_URL: http://crowdsec:8080/
+      API_KEY: ${CROWDSEC_KEY:-my_super_secret_key_123}
+      CF_ACCOUNTID: ${CF_ACCOUNTID}
+      CF_APITOKEN: ${CF_APITOKEN}
+    volumes:
+      - bouncer-config:/config:rw
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      Management:
 
   autoheal:
     deploy:
