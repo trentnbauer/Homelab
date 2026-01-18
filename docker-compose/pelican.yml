@@ -278,9 +278,9 @@ services:
       - ADMINER_SERVER=database
       - ADMINER_USERNAME=root
       - ADMINER_PASSWORD={MYSQL_ROOT_PASS}
-      Management:
-        aliases:
-          - dbui
+    Management:
+      aliases:
+        - dbui
     labels:
       - AutohealPelican=true
       - dfpelican.enable=true
