@@ -281,7 +281,7 @@ services:
   adminer:
     image: ghcr.io/jeliebig/adminer-autologin:4.8.1
     ports:
-      - ${ADMINER_PORT:-8081}:8080
+      - ${ADMINER_PORT:-8080}:8080
     deploy:
       restart_policy:
         condition: on-failure
