@@ -278,15 +278,16 @@ services:
       - ADMINER_SERVER=database
       - ADMINER_USERNAME=root
       - ADMINER_PASSWORD={MYSQL_ROOT_PASS}
-    Management:
-      aliases:
-        - dbui
+    networks:
+      Management:
+        aliases:
+          - dbui
     labels:
       - AutohealPelican=true
       - dfpelican.enable=true
       - dfpelican.0.hostname=${DB_SUBDOMAIN:-db}.${DOMAIN}
       - dfpelican.0.service=http://dbui:8080
-      - dfpelican.0.access.policy=default_tld
+      - dfpelican.0.access.policy=${DB_POLICY:-authenticate}
       - dfpelican.0.zonename=${DOMAIN}
 
   autoheal:
