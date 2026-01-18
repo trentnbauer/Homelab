@@ -19,7 +19,7 @@ nftables:
     chain: crowdsec-chain
     priority: -10
   ipv6:
-    enabled: false
+    enabled: true
     set-only: false
     table: crowdsec6
     chain: crowdsec6-chain
