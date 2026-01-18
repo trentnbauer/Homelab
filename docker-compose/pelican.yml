@@ -195,7 +195,7 @@ services:
   dockflare:
     image: alplat/dockflare:v2.0.4
     restart: unless-stopped
-      resources:
+    resources:
         limits:
           cpus: ${DOCKFLARE_CPULIMIT:-1}
     networks:
@@ -281,9 +281,6 @@ services:
       - ADMINER_SERVER=database
       - ADMINER_USERNAME=pelican
       - ADMINER_PASSWORD=${MYSQL_PASS}
-      resources:
-        limits:
-          cpus: ${ADMINER_CPULIMIT:-1}
     networks:
       Management:
         aliases:
