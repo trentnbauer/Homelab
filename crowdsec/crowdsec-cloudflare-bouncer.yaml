@@ -13,10 +13,10 @@ cloudflare_config:
   - id: ${CF_ACCOUNTID}
     token: ${CF_APITOKEN}
     ip_list_prefix: crowdsec
-    default_action: managed_challenge
+    default_action: captcha
     zones:
     - actions: 
-      - captcha # valid choices are either of managed_challenge, js_challenge, block
+      - managed_challenge # valid choices are either of managed_challenge, js_challenge, block
       # zone_id:
     
 
