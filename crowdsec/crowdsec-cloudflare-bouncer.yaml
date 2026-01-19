@@ -1,7 +1,7 @@
 crowdsec_config:
   lapi_url: ${API_URL}
   lapi_key: ${API_KEY}
-  update_frequency: 120s
+  update_frequency: 10s
   include_scenarios_containing: []
   exclude_scenarios_containing: []
   only_include_decisions_from: ["cscli", "crowdsec"] 
@@ -28,7 +28,8 @@ cloudflare_config:
           #account_name: x@x.com
           ip_list_prefix: crowdsec
           default_action: managed_challenge
-          total_ip_list_capacity: 5000 # only this many latest IP decisions would be kept          
+          total_ip_list_capacity: 5000 # only this many latest IP decisions would be kept
+          update_frequency: 600s
 
 log_mode: stdout
 log_level: info
