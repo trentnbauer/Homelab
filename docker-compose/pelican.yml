@@ -385,7 +385,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   crowdsecbouncer-cloudflare:
-    image: ghcr.io/crowdsecurity/cloudflare-worker-bouncer:v0.0.14
+    image: ghcr.io/crowdsecurity/cloudflare-bouncer:v0.3.0@sha256:39719a070c154866ebc81335e70fdfa1c61eac45025fee7d9bbf8da689fbb2c6
     deploy:
       restart_policy:
         condition: on-failure
