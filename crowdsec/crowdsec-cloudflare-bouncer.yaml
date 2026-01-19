@@ -15,7 +15,7 @@ cloudflare_config:
     accounts:    
         - id: ${CF_ACCOUNTID}
           zones: #
-            - zone_id: ${DOMAIN}
+            - zone_id: ${CF_ZONE_ID}
               actions:
                 - captcha
               default_action: captcha # Supported Actions [captcha, ban, none]
