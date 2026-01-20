@@ -93,9 +93,6 @@ services:
       Management:
         aliases:
           - database
-      wings:
-        aliases:
-          - database
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
       interval: 30s
@@ -293,9 +290,3 @@ networks:
        config:
        - subnet: 192.168.253.0/24
          gateway: 192.168.253.1
-  wings:
-    name: pelican_nw
-    ipam:
-       config:
-       - subnet: 192.168.254.0/24
-         gateway: 192.168.254.1
