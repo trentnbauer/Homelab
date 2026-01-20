@@ -29,8 +29,8 @@ services:
       - /var/lib/docker/containers/:/var/lib/docker/containers/
       - config:/etc/pelican/
       - /var/lib/pelican/:/var/lib/pelican/
-      - logs:/var/log/pelican/
-      - temp:/tmp/pelican/
+      - /var/log/pelican/:/var/log/pelican/
+      - /tmp/pelican/:/tmp/pelican/
     logging:
       driver: "json-file"
       options:
@@ -144,7 +144,7 @@ services:
       - crowdsec-data:/var/lib/crowdsec/data
       - crowdsec-config:/etc/crowdsec
       - bouncer:/etc/bouncer-shared
-      - logs:/var/log/pelican:ro
+      - /var/log/pelican/:/var/log/pelican:ro
     healthcheck:  
       test: ["CMD", "cscli", "version"]
     labels:
@@ -228,8 +228,8 @@ services:
       - /var/lib/docker/containers/:/var/lib/docker/containers/
       - config:/etc/pelican/
       - /var/lib/pelican/:/var/lib/pelican/
-      - logs:/var/log/pelican/
-      - temp:/tmp/pelican/
+      - /var/log/pelican/:/var/log/pelican/
+      - /tmp/pelican/:/tmp/pelican/
     logging:
       driver: "json-file"
       options:
