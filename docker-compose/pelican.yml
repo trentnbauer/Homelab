@@ -198,7 +198,7 @@ services:
       init-crowdsec:
         condition: service_completed_successfully
     environment:
-      - COLLECTIONS=lourys/pterodactyl
+      - COLLECTIONS=crowdsecurity/linux
       - BOUNCER_KEY_CLOUDFLARE=Heroics9HeadrestQuenchHullPatriot
       - DISABLE_ONLINE_API=false
     volumes:
