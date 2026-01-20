@@ -137,7 +137,7 @@ services:
       init-crowdsec:
         condition: service_completed_successfully
     environment:
-      - COLLECTIONS=lourys/pterodactyl
+      - COLLECTIONS=lourys/pterodactyl,crowdsecurity/linux
       - BOUNCER_KEY_FIREWALL=${CROWDSEC_KEY}
       - DISABLE_ONLINE_API=false
     volumes:
