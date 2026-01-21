@@ -1,9 +1,0 @@
-Scenario_Crossing_Skirmish
-Scenario_Farmhouse_Skirmish
-Scenario_Hideout_Skirmish
-Scenario_Hillside_Skirmish
-Scenario_Ministry_Skirmish
-Scenario_Outskirts_Skirmish
-Scenario_Precinct_Skirmish
-Scenario_Refinery_Skirmish
-Scenario_Summit_Skirmish

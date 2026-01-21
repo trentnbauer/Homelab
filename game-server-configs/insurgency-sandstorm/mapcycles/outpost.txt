@@ -1,9 +1,0 @@
-Scenario_Bab_Outpost
-Scenario_Citadel_Outpost
-Scenario_Crossing_Outpost
-Scenario_Gap_Outpost
-Scenario_Hillside_Outpost
-Scenario_Tell_Outpost
-Scenario_Bab_Outpost
-Scenario_Citadel_Outpost
-Scenario_LastLight_Outpost
