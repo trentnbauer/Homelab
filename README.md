@@ -21,10 +21,8 @@ This project is an open-source educational resource. While primarily for documen
 * **Discord**: Join the conversation at [A Gamers Grind](https://discord.agamersgrind.com).
 * **Website**: Technical guides and deep dives at [trentbauer.com](https://trentbauer.com).
 
-## Contributions
-If you find an error or wish to suggest an improvement to our educational materials:
-1.  **Documentation Corrections:** Please use the [Documentation Change template](https://github.com/trentnbauer/HomelabPublic/blob/master/.github/ISSUE_TEMPLATE/gitbook_change.yaml) to suggest specific fixes for GitBook pages.
-2.  **Technical Issues:** Use the [Bug Report template](https://github.com/trentnbauer/HomelabPublic/blob/master/.github/ISSUE_TEMPLATE/bug_report.yaml) to report issues with specific app configurations.
+## Pterodactyl / Pelican
+I have uploaded custom and modified eggs [here](https://github.com/trentnbauer/PelicanEggs)
 
 ---
 *Maintained by [@trentnbauer](https://github.com/trentnbauer)*
