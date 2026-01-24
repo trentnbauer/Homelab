@@ -11,3 +11,9 @@ filenames:
 labels:
   type: syslog
   service: linux
+---
+# Monitor for port scans
+filenames:
+  - /var/log/kern.log
+labels:
+  type: syslog
