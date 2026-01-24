@@ -14,6 +14,7 @@ jobs:
           review-message: "PR created by Trent - auto approved"
   auto-merge:
       runs-on: ubuntu-latest
+      needs: auto-approve
       if: github.actor == 'trentnbauer'
       steps:
         - name: automerge
