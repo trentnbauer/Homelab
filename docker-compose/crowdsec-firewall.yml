@@ -30,6 +30,9 @@ services:
       - /var/log/syslog:/var/log/syslog:ro
     healthcheck:  
       test: ["CMD", "cscli", "version"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
     networks:
       crowdsec:
         aliases:
@@ -49,7 +52,7 @@ services:
     network_mode: host
     depends_on:
       engine:
-        condition: service_started
+        condition: service_healthy
     cap_add:
       - NET_ADMIN
       - NET_RAW
