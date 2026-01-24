@@ -35,7 +35,7 @@ services:
       test: ["CMD", "cscli", "version"]
     environment:
       - COLLECTIONS=crowdsecurity/unifi
-      - BOUNCER_KEY_unifi=${CROWDSEC_BOUNCER_API_KEY:-MandatoryUnsolvedSnippetMonetizeDrizzle8}
+      - BOUNCER_KEY_unifi=${BOUNCER_KEY:-MandatoryUnsolvedSnippetMonetizeDrizzle8}
       - ENROLL_INSTANCE_NAME=UniFi
       - DISABLE_LOCAL_API=false
       - DISABLE_ONLINE_API=false
@@ -68,7 +68,7 @@ services:
         window: 120s
     environment:
       - CROWDSEC_URL=http://crowdsec:8080/
-      - CROWDSEC_BOUNCER_API_KEY=${CROWDSEC_BOUNCER_API_KEY:-MandatoryUnsolvedSnippetMonetizeDrizzle8}
+      - CROWDSEC_BOUNCER_API_KEY=${BOUNCER_KEY:-MandatoryUnsolvedSnippetMonetizeDrizzle8}
       - UNIFI_HOST=${UNIFI_HOST:-https://unifi}
       - UNIFI_USER=${UNIFI_USER}
       - UNIFI_PASS=${UNIFI_PASS}
