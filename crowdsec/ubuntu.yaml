@@ -1,0 +1,13 @@
+# Standard Ubuntu/Debian SSH monitoring
+filenames:
+  - /var/log/auth.log
+labels:
+  type: syslog
+  service: sshd
+---
+# Monitor general system auth (sudo, su, etc.)
+filenames:
+  - /var/log/syslog
+labels:
+  type: syslog
+  service: linux
