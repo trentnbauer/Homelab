@@ -40,6 +40,11 @@ services:
       - DISABLE_LOCAL_API=false
       - DISABLE_ONLINE_API=false
       - ENROLL_KEY=${CROWDSEC_ENROLL_KEY}
+    healthcheck:  
+      test: ["CMD", "cscli", "version"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     deploy:
       restart_policy:
         condition: on-failure
@@ -75,7 +80,7 @@ services:
       - UNIFI_SKIP_TLS_VERIFY=${SKIP_TLS_VERIFY:-true}
     depends_on:
       engine:
-        condition: service_started
+        condition: service_healthy
     networks:
       crowdsec:
         aliases:
