@@ -13,13 +13,18 @@ jobs:
         with:
           review-message: "PR created by Trent - auto approved"
   auto-merge:
-      runs-on: ubuntu-latest
-      needs: auto-approve
-      if: github.actor == 'trentnbauer'
-      steps:
-        - name: automerge
-          uses: "pascalgn/automerge-action@v0.16.2"
-          env:
-            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-            MERGE_METHOD: "squash"
-            MERGE_LABELS: ""
+    runs-on: ubuntu-latest
+    needs: auto-approve
+    permissions:
+      pull-requests: write
+      contents: write
+    if: github.actor == 'trentnbauer'
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.16.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "squash"
+          MERGE_LABELS: ""
+          MERGE_RETRIES: "10"
+          MERGE_RETRY_SLEEP: "10000"
