@@ -31,7 +31,7 @@ services:
     healthcheck:  
       test: ["CMD", "cscli", "version"]
     networks:
-      Management:
+      crowdsec:
         aliases:
           - crowdsec
 
