@@ -11,7 +11,7 @@ services:
         window: 120s
     restart: unless-stopped
     depends_on:
-      init-crowdsec:
+      init:
         condition: service_completed_successfully
     environment:
       - COLLECTIONS=crowdsecurity/linux
@@ -62,7 +62,7 @@ services:
         aliases:
           - bouncer
 
-  init-crowdsec:
+  init:
     image: alpine:latest
     volumes:
       - config:/etc/crowdsec
