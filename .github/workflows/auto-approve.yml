@@ -1,4 +1,4 @@
-name: Auto approve
+name: Approve & Merge
 
 on: pull_request_target
 
