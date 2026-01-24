@@ -18,7 +18,7 @@ services:
     environment:
       - COLLECTIONS=crowdsecurity/linux crowdsecurity/sshd
       - ENROLL_INSTANCE_NAME=${CROWDSEC_NAME}
-      - BOUNCER_KEY_FIREWALL=${CROWDSEC_KEY}
+      - BOUNCER_KEY_FIREWALL=${BOUNCER_KEY}
       - DISABLE_LOCAL_API=false
       - DISABLE_ONLINE_API=false
       - ENROLL_KEY=${CROWDSEC_ENROLL_KEY}
@@ -59,7 +59,7 @@ services:
       - no-new-privileges:true
     environment:
       - API_URL=http://localhost:${CROWDSEC_PORT:-8080}/
-      - API_KEY=${CROWDSEC_KEY}
+      - API_KEY=${BOUNCER_KEY}
     volumes:
       - bouncer:/config:rw
       - /etc/localtime:/etc/localtime:ro
