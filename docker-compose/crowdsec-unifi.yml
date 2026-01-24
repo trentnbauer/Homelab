@@ -27,7 +27,7 @@ services:
     labels:
       - AH.CS.UniFi=true
     depends_on:
-      init-crowdsec:
+      init:
         condition: service_completed_successfully
       syslog:
         condition: service_started
@@ -81,7 +81,7 @@ services:
         aliases:
           - bouncer
           
-  init-crowdsec:
+  init:
     image: alpine:latest
     volumes:
       - crowdsec:/etc/crowdsec
