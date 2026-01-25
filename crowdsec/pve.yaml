@@ -27,3 +27,9 @@ filenames:
   - /var/log/daemon.log
 labels:
   type: syslog
+---
+# Monitor for port scans
+filenames:
+  - /var/log/kern.log
+labels:
+  type: syslog
