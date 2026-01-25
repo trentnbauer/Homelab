@@ -64,22 +64,6 @@ services:
       - bouncer:/config:rw
       - /etc/localtime:/etc/localtime:ro
 
-  pve-sync:
-    image: alpine:3.23.2
-    network_mode: host
-    depends_on:
-      engine:
-        condition: service_healthy
-    volumes:
-      - scripts:/scripts
-    environment:
-      - PVE_TOKEN_ID=${PVE_TOKEN_ID}
-      - PVE_TOKEN_SECRET=${PVE_TOKEN_SECRET}
-      - BOUNCER_KEY=${BOUNCER_KEY}
-      - CROWDSEC_PORT=${CROWDSEC_PORT:-8080}
-      - PVE_PORT=${PVE_PORT:-8006}
-    entrypoint: ["/bin/sh", "/scripts/pve-sync.sh"]
-
   init:
     image: alpine:3.23.2
     volumes:
@@ -90,8 +74,7 @@ services:
       sh -c "apk add --no-cache wget ca-certificates &&
              mkdir -p /etc/crowdsec/acquisitions.d /etc/crowdsec/bouncers &&
              wget -qO /etc/crowdsec/acquisitions.d/pve.yaml https://raw.githubusercontent.com/trentnbauer/HomelabPublic/main/crowdsec/pve.yaml &&
-             wget -qO /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml https://raw.githubusercontent.com/trentnbauer/HomelabPublic/main/crowdsec/crowdsec-firewall-bouncer.yaml &&
-             wget -qO /scripts/pve-sync.sh https://raw.githubusercontent.com/trentnbauer/HomelabPublic/main/crowdsec/pve-sync.sh"
+             wget -qO /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml https://raw.githubusercontent.com/trentnbauer/HomelabPublic/main/crowdsec/crowdsec-firewall-bouncer.yaml"
 
   autoheal:
     deploy:
