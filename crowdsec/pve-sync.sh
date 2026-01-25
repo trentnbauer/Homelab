@@ -13,8 +13,9 @@ while true; do
   CS_BANS=$(curl -s -H "X-Api-Key: $BOUNCER_KEY" "http://localhost:8080/v1/decisions" | jq -r '.[].value // empty' | sort)
 
   # 2. Fetch current IPs from the Proxmox 'crowdsec_bans' IP Set
+  # Added ( .data // [] ) to handle the null response when the set is empty
   PVE_BANS=$(curl -s -k -H "Authorization: PVEAPIToken=$PVE_TOKEN_ID=$PVE_TOKEN_SECRET" \
-    "https://localhost:8006/api2/json/cluster/firewall/ipset/crowdsec_bans" | jq -r '.data[].cidr // empty' | sort)
+    "https://localhost:8006/api2/json/cluster/firewall/ipset/crowdsec_bans" | jq -r '.data // [] | .[].cidr // empty' | sort)
 
   # 3. ADD: Loop through CrowdSec bans and add missing ones to Proxmox
   for ip in $CS_BANS; do
