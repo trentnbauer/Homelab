@@ -64,8 +64,53 @@ services:
       - bouncer:/config:rw
       - /etc/localtime:/etc/localtime:ro
 
+pve-sync:
+    image: alpine:3.23.2
+    network_mode: host
+    depends_on:
+      engine:
+        condition: service_healthy
+    environment:
+      - PVE_URL=https://localhost:${PVE_PORT:-8006}/api2/json
+      - PVE_TOKEN_ID=${PVE_TOKEN_ID}
+      - PVE_TOKEN_SECRET=${PVE_TOKEN_SECRET}
+      - LAPI_URL=http://localhost:${CROWDSEC_PORT:-8080}/v1
+      - LAPI_KEY=${BOUNCER_KEY}
+    command: >
+      sh -c "apk add --no-cache curl jq &&
+      while true; do
+        echo 'Starting sync check...'
+        # Fetch current bans from CrowdSec
+        CS_BANS=$$(curl -s -H \"X-Api-Key: $$LAPI_KEY\" $$LAPI_URL/decisions | jq -r '.[].value' | sort)
+        
+        # Fetch current bans from Proxmox IP Set
+        PVE_BANS=$$(curl -s -k -H \"Authorization: PVEAPIToken=$$PVE_TOKEN_ID=$$PVE_TOKEN_SECRET\" \
+          \"https://localhost:${PVE_PORT:-8006}/api2/json/cluster/firewall/ipset/crowdsec_bans\" | jq -r '.data[].cidr // empty' | sort)
+        
+        # Add new bans to Proxmox
+        for ip in $$CS_BANS; do
+          if ! echo \"$$PVE_BANS\" | grep -q \"$$ip\"; then
+            echo \"Adding $$ip to Proxmox...\"
+            curl -s -k -X POST -H \"Authorization: PVEAPIToken=$$PVE_TOKEN_ID=$$PVE_TOKEN_SECRET\" \
+              -d \"cidr=$$ip\" \"https://localhost:${PVE_PORT:-8006}/api2/json/cluster/firewall/ipset/crowdsec_bans\" > /dev/null
+          fi
+        done
+        
+        # Remove expired bans from Proxmox
+        for ip in $$PVE_BANS; do
+          if ! echo \"$$CS_BANS\" | grep -q \"$$ip\"; then
+            echo \"Removing $$ip from Proxmox...\"
+            curl -s -k -X DELETE -H \"Authorization: PVEAPIToken=$$PVE_TOKEN_ID=$$PVE_TOKEN_SECRET\" \
+              \"https://localhost:${PVE_PORT:-8006}/api2/json/cluster/firewall/ipset/crowdsec_bans/$$ip\" > /dev/null
+          fi
+        done
+        
+        echo 'Sync complete. Sleeping 5 minutes.'
+        sleep 300;
+      done"
+
   init:
-    image: alpine:latest
+    image: alpine:3.23.2
     volumes:
       - config:/etc/crowdsec
       - bouncer:/etc/crowdsec/bouncers
