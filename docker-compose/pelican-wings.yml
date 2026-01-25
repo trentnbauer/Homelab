@@ -172,7 +172,7 @@ services:
     network_mode: host
     depends_on:
       crowdsec-engine:
-        condition: service_started
+        condition: service_healthy
     cap_add:
       - NET_ADMIN
       - NET_RAW
