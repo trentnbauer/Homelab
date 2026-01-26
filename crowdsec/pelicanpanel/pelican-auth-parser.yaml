@@ -1,14 +1,13 @@
 name: trentbauer.com/pelicanpanel-auth-parser
 description: "Parse Pelican Panel auth logs from MySQL"
-filter: "evt.Meta.datasource == 'mysql' && evt.Labels.type == 'pelican-auth'"
+# Changed evt.Labels.type to evt.Parsed.type
+filter: "evt.Meta.datasource == 'mysql' && evt.Parsed.type == 'pelican-auth'"
 onsuccess: next_stage
 nodes:
   - grok:
-      # This extracts the IP from the 'ip' column in your SELECT
       pattern: "%{IP:source_ip}"
       apply_on: evt.Parsed.ip
   - grok:
-      # This ensures the timestamp matches your DB's 'timestamp' column
       pattern: "%{TIMESTAMP_ISO8601:timestamp}"
       apply_on: evt.Parsed.timestamp
 statics:
