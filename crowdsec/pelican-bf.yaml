@@ -1,0 +1,12 @@
+type: leaky
+name: trentbauer.com/pelican-bf
+description: "Detect Pelican Panel brute force attempts"
+filter: "evt.Meta.log_type == 'pelican_failed_auth'"
+leakspeed: 10s
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  remediation: true
+  service: pelican
+  label: "Pelican Panel Brute Force"
