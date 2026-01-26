@@ -6,7 +6,7 @@ services:
     image: fabianschweinfurth/autoshift:48a183a
     command: schedule --user=$${SHIFT_USER} --pass=$${SHIFT_PASS}
     environment:
-      - TZ=${TZ:-Australia/Melbourne}
+      - TZ=${TZ:-UTC}
       - SHIFT_PLATFORMS=${SHIFT_PLATFORMS:-steam,epic,psn,xboxlive}
       - SHIFT_GAMES=${SHIFT_GAMES:-bl1,bl2,bl3,bl4,blps,ttw,gdfll}
       - SHIFT_USER=${SHIFT_USER}
