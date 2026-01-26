@@ -1,17 +1,16 @@
 name: trentbauer.com/pelicanpanel-auth-parser
-description: "Parse Pelican Panel auth logs from MySQL"
-# Changed evt.Labels.type to evt.Parsed.type
-filter: "evt.Meta.datasource == 'mysql' && evt.Parsed.type == 'pelican-auth'"
+description: "Parse Pelican Panel login failures from MariaDB"
+filter: "evt.Meta.type == 'pelican-auth'"
 onsuccess: next_stage
 nodes:
   - grok:
-      pattern: "%{IP:source_ip}"
-      apply_on: evt.Parsed.ip
-  - grok:
-      pattern: "%{TIMESTAMP_ISO8601:timestamp}"
-      apply_on: evt.Parsed.timestamp
+      # Use single quotes to ensure \s is treated as a regex space, not a YAML escape
+      pattern: '^%{IP:source_ip}\s+%{DATA:user_email}\s+%{TIMESTAMP_ISO8601:timestamp}'
+      apply_on: message
 statics:
-  - meta: log_type
-    value: pelican_failed_auth
   - target: evt.StrTime
-    expression: evt.Parsed.timestamp
+    src: timestamp
+  - target: evt.Meta.source_ip
+    src: source_ip
+  - target: evt.Meta.user
+    src: user_email
