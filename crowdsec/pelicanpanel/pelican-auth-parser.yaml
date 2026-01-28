@@ -1,10 +1,10 @@
 name: trentbauer.com/pelicanpanel-auth-parser
 description: "Parse Pelican Panel login failures from MariaDB"
-filter: "evt.Meta.type == 'pelican-auth'"
+filter: "evt.Meta.type == 'pelican-auth' || evt.Parsed.program == 'pelican-auth'"
 onsuccess: next_stage
 nodes:
   - grok:
-      pattern: '^%{IP:source_ip}\s+%{DATA:user_email}\s+%{TIMESTAMP_ISO8601:timestamp}'
+      pattern: '^%{IPORHOST:source_ip}[ \t]+%{DATA:user_email}[ \t]+%{TIMESTAMP_ISO8601:timestamp}'
       apply_on: message
 statics:
   - target: evt.StrTime
