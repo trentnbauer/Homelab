@@ -43,7 +43,7 @@ services:
       - AH.CS.Firewall=true
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: unless-stopped
         delay: 60s
         max_attempts: 6
         window: 60s
