@@ -1,12 +1,11 @@
 type: leaky
 name: trentbauer.com/pelican-bf
-description: "Detect Pelican Panel brute force attempts"
-# Matches the 'log_type' value we just set in the parser's statics
+description: "Detect repeated Pelican Panel auth lockouts"
 filter: "evt.Meta.log_type == 'pelican_auth_fail'"
-leakspeed: 10s
-capacity: 5
+capacity: 8
+leakspeed: 1m
 groupby: "evt.Meta.source_ip"
-blackhole: 1m
+blackhole: 15m
 labels:
   remediation: true
   service: pelican
