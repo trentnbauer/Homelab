@@ -3,12 +3,6 @@ services:
     image: crowdsecurity/crowdsec:v1.7.6@sha256:63b595fef92de1778573b375897a45dd226637ee9a3d3db9f57ac7355c369493
     labels:
       - AH.CS.Firewall=true
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
     restart: unless-stopped
     ports:
       - ${CROWDSEC_PORT:-8080}:8080
